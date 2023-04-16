@@ -1,0 +1,21 @@
+.home-container {
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-wrapper {
+  width: var(--primary-width);
+  height: 50vh;
+}
+.best-product-seller {
+  width: var(--primary-width);
+  margin-top: 24px;
+}
+.header-carousel {
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 16px;
+}
