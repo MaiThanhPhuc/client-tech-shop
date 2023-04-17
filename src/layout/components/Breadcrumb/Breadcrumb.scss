@@ -1,0 +1,12 @@
+.breadcrumb {
+  a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    span {
+      font-size: 20px;
+    }
+  }
+  padding: 4px 0;
+}

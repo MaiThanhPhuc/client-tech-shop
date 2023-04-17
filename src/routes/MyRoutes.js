@@ -4,7 +4,8 @@ import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import ListProduct from "../pages/ListProduct/ListProduct";
 import SignUp from "../pages/SignUp/SignUp";
-import DefaultLayout from "../layout/DefaultLayout/DefaultLayout";
+import HomeLayout from "../layout/HomeLayout/HomeLayout";
+import DetailProduct from "../pages/DetailProduct/DetailProduct";
 const MyRoutes = () => {
   const publicRoutes = [
     {path: "/", component: <Home />},
@@ -17,12 +18,13 @@ const MyRoutes = () => {
       component: <ListProduct />,
     },
     {path: "/signUp", component: <SignUp />},
+    {path: "/detail/:id", component: <DetailProduct />},
   ];
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<DefaultLayout />}>
+        <Route path="/" element={<HomeLayout />}>
           {publicRoutes.map((item) => (
             <Route path={item.path} element={item.component} />
           ))}
