@@ -6,6 +6,7 @@ import ListProduct from "../pages/ListProduct/ListProduct";
 import SignUp from "../pages/SignUp/SignUp";
 import HomeLayout from "../layout/HomeLayout/HomeLayout";
 import DetailProduct from "../pages/DetailProduct/DetailProduct";
+import Order from "../pages/Order/Order";
 const MyRoutes = () => {
   const publicRoutes = [
     {path: "/", component: <Home />},
@@ -19,6 +20,7 @@ const MyRoutes = () => {
     },
     {path: "/signUp", component: <SignUp />},
     {path: "/detail/:id", component: <DetailProduct />},
+    {path: "/order", component: <Order />},
   ];
 
   return (
