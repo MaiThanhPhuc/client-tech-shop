@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from "react";
-// import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 // import {PayPalButton} from "react-paypal-button-v2";
-// import {createOrder, payOrder} from "../../actions/OrderAction";
-// import {useHistory} from "react-router-dom";
+import {createOrder, payOrder} from "../../../actions/OrderAction";
+import {useNavigate} from "react-router-dom";
 import VnPay from "./VnPay";
 
 export default function Payment() {
-  // const history = useHistory();
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [sdkReady, setSdkReady] = useState(false);
   const [choosePay, setChoosePay] = useState({
     payLater: false,
     payOnline: false,
   });
 
-  // const {order} = useSelector((state) => state.orderInfo);
+  const {order} = useSelector((state) => state.orderInfo);
 
   const payLater = () => {
     setChoosePay({payOnline: false, payLater: true});
@@ -26,24 +26,24 @@ export default function Payment() {
   };
 
   const successPaymentHandler = async (paymentResult) => {
-    // const OrderPaid = {
-    //   ...order,
-    //   status: "pendding",
-    //   paymentMethod: "payOnline",
-    //   paymentResult: {...paymentResult},
-    // };
-    // await dispatch(createOrder(OrderPaid));
-    // history.push("/orderSuccess");
+    const OrderPaid = {
+      ...order,
+      status: "pendding",
+      paymentMethod: "payOnline",
+      paymentResult: {...paymentResult},
+    };
+    await dispatch(createOrder(OrderPaid));
+    navigate.push("/orderSuccess");
   };
 
   const SendOrderPayLater = async () => {
-    // const OrderPaid = {
-    //   ...order,
-    //   status: "pendding",
-    //   paymentMethod: "payLater",
-    // };
-    // await dispatch(createOrder(OrderPaid));
-    // history.push("/orderSuccess");
+    const OrderPaid = {
+      ...order,
+      status: "pendding",
+      paymentMethod: "payLater",
+    };
+    await dispatch(createOrder(OrderPaid));
+    navigate.push("/orderSuccess");
   };
 
   useEffect(() => {

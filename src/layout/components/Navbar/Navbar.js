@@ -33,7 +33,7 @@ function Navbar() {
     {
       id: 1,
       text: "Giỏ hàng",
-      href: "",
+      href: "/cart",
       icon: "shopping_cart",
       action: () => console.log("Cart"),
     },

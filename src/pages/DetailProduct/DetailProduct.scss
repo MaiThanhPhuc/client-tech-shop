@@ -98,9 +98,9 @@
   }
 
   &__option {
+    margin-top: 24px;
     &__fisrt {
       &__radio {
-        margin-top: 16px;
         padding: 0 !important;
         &__name {
           font-weight: 600;
@@ -114,6 +114,7 @@
     }
 
     &__second {
+      margin-top: 16px;
       display: flex;
       gap: 8px;
     }
@@ -123,20 +124,20 @@
   }
   &__button {
     &__buynow {
-      background: linear-gradient(#f52f32, #f02128);
-      border: solid 1px #cb1c22;
-      margin-top: 10px;
-      color: #fff !important;
-      font-size: 14px;
-      padding: 8px 5px;
-      line-height: 18px;
-      width: 100%;
-      border-radius: 5px;
-      display: block;
-      text-align: center;
-      cursor: pointer;
-      font-weight: 600;
       a {
+        background: linear-gradient(#f52f32, #f02128);
+        border: solid 1px #cb1c22;
+        margin-top: 10px;
+        color: #fff !important;
+        font-size: 14px;
+        padding: 8px 5px;
+        line-height: 18px;
+        width: 100%;
+        border-radius: 5px;
+        display: block;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
         color: rgba($color: #fff, $alpha: 0.95);
       }
     }

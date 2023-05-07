@@ -7,6 +7,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import HomeLayout from "../layout/HomeLayout/HomeLayout";
 import DetailProduct from "../pages/DetailProduct/DetailProduct";
 import Order from "../pages/Order/Order";
+import CartPage from "../pages/Cart/CartPage";
 const MyRoutes = () => {
   const publicRoutes = [
     {path: "/", component: <Home />},
@@ -21,14 +22,15 @@ const MyRoutes = () => {
     {path: "/signUp", component: <SignUp />},
     {path: "/detail/:id", component: <DetailProduct />},
     {path: "/order", component: <Order />},
+    {path: "/cart", component: <CartPage />},
   ];
 
   return (
     <>
       <Routes>
         <Route path="/" element={<HomeLayout />}>
-          {publicRoutes.map((item) => (
-            <Route path={item.path} element={item.component} />
+          {publicRoutes.map((item, index) => (
+            <Route key={index} path={item.path} element={item.component} />
           ))}
         </Route>
         <Route element={<PrivateRoute />}></Route>

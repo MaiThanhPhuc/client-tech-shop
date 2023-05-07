@@ -4,7 +4,8 @@ import "swiper/css/navigation";
 import "./CarouselDetailProduct.scss";
 import {Navigation} from "swiper";
 import imagePath from "../../../assets/imagePath";
-function CarouselDetailProduct() {
+function CarouselDetailProduct(props) {
+  const {images} = props;
   const ListImg = [
     {
       name: "hero-2",
@@ -34,11 +35,15 @@ function CarouselDetailProduct() {
   return (
     <>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-        {ListImg.map((item, index) => (
-          <SwiperSlide key={index}>
-            <img src={item.src} alt={item.name} />
-          </SwiperSlide>
-        ))}
+        {images && images.length > 0 ? (
+          images.map((item, index) => (
+            <SwiperSlide key={index}>
+              <img src={item.src} alt={item.name} />
+            </SwiperSlide>
+          ))
+        ) : (
+          <>Khoong cos anh</>
+        )}
       </Swiper>
     </>
   );

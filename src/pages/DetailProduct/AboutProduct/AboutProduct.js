@@ -1,6 +1,7 @@
 import React from "react";
 
 function AboutProduct(props) {
+  const {data} = props;
   return (
     <div className="detail-intro">
       <div className="detail-intro-title">

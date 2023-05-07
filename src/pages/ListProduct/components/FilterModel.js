@@ -67,10 +67,10 @@ export const ListFilterPhone = [
   },
   {
     id: 2,
-    name: "Giá",
+    name: "Nhu cầu sử dụng",
     icon: "filter",
     isSelect: true,
-    subFilter: [
+    options: [
       {
         name: "test",
         icon: "filter",
@@ -81,7 +81,7 @@ export const ListFilterPhone = [
     id: 3,
     name: "Kích thước màn hình",
     isSelect: true,
-    subFilter: [
+    options: [
       {
         name: "Dưới 6 inches",
         id: 31,
@@ -96,7 +96,7 @@ export const ListFilterPhone = [
     id: 4,
     name: "Loại điện thoại",
     isSelect: true,
-    subFilter: [
+    options: [
       {
         name: "IPhone(IOS)",
         id: 41,
@@ -111,7 +111,7 @@ export const ListFilterPhone = [
     id: 5,
     name: "Tính năng đặc biệt",
     isSelect: true,
-    subFilter: [
+    options: [
       {
         name: "Hỗ trợ 5G",
         id: 51,
@@ -134,7 +134,7 @@ export const ListFilterPhone = [
     id: 6,
     name: "Bộ nhớ trong",
     isSelect: true,
-    subFilter: [
+    options: [
       {
         name: "128GB và 256GB",
         id: 61,

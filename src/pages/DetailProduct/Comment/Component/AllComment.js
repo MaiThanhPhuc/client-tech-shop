@@ -40,7 +40,7 @@ function AllComment(props) {
   };
 
   return (
-    <div class="all-comment">
+    <div className="all-comment">
       {allComment.map((comment) => (
         <>
           <Grid style={{marginTop: "1rem"}} xs={12} sm={12} md={10}>
@@ -48,7 +48,10 @@ function AllComment(props) {
               <div style={{display: "flex"}}>
                 {comment.isAdmin ? (
                   <div className="all-comment-info-name admin">
-                    <img src="https://cellphones.com.vn/skin/frontend/default/cpsdesktop/images/media/logo.png"></img>
+                    <img
+                      alt="anh"
+                      src="https://cellphones.com.vn/skin/frontend/default/cpsdesktop/images/media/logo.png"
+                    ></img>
                   </div>
                 ) : (
                   <div className="all-comment-info-name">

@@ -248,7 +248,7 @@ function RatingProduct() {
                   )}
                 </Grid>
               </div>
-              <Grid sx={12}>
+              <Grid xs={12}>
                 {showRate && (
                   <div
                     className="rate-star"
@@ -286,8 +286,8 @@ function RatingProduct() {
 
         <Grid container style={{marginTop: "1rem"}}>
           {product.reviews.length > 0
-            ? product.reviews.map((item) => (
-                <Grid item align="start" xs={8} sm={12} md={8}>
+            ? product.reviews.map((item, index) => (
+                <Grid key={index} item align="start" xs={8} sm={12} md={8}>
                   <div className="rating-item">
                     <p
                       className="name"

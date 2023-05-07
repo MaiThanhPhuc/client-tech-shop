@@ -52,13 +52,7 @@ function Comment() {
   return (
     <div className="comment">
       <div className="comment-title">Hỏi và đáp</div>
-      <Grid
-        align="start"
-        style={{alignItems: "center"}}
-        xs={12}
-        sm={12}
-        md={10}
-      >
+      <Grid align="start" style={{alignItems: "center"}}>
         <div className="comment-area" style={{display: "flex"}}>
           <textarea
             placeholder="Xin mời để lại câu hỏi, Shop sẽ trả lời trong 1h từ 8h - 22h mỗi ngày."

@@ -1,33 +1,36 @@
 import React, {useEffect, useState} from "react";
 import "./Order.scss";
-// import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
-// import {
-//   GetAllDistrict,
-//   GetAllProvince,
-//   GetAllWard,
-//   OrderInfo,
-// } from "../../actions/OrderAction";
-// import {useHistory} from "react-router-dom";
+import {
+  GetAllDistrict,
+  GetAllProvince,
+  GetAllWard,
+  OrderInfo,
+} from "../../actions/OrderAction";
+import {useNavigate} from "react-router-dom";
 import Payment from "./components/Payment";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 function Order() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const {register, handleSubmit} = useForm();
 
-  // const allProvince = useSelector((state) => state.address.province);
-  // const allDistrict = useSelector((state) => state.address.district);
-  // const allWard = useSelector((state) => state.address.ward);
-
-  const allProvince = ["aabc", "test"];
-  const allDistrict = ["aabc", "test"];
-  const allWard = ["aabc", "test"];
+  const allProvince = useSelector((state) => state.address.province);
+  const allDistrict = useSelector((state) => state.address.district);
+  const allWard = useSelector((state) => state.address.ward);
 
   const [listProvince, setListProvince] = useState(false);
   const [listDistrict, setListDistrict] = useState(false);
   const [listWard, setListWard] = useState(false);
 
-  const [chooseProvince, setChooseProvince] = useState({name: "Hồ Chí Minh"});
+  const [chooseProvince, setChooseProvince] = useState({name: "Tỉnh"});
   const [chooseDistrict, setChooseDistrict] = useState({name: "Quận / Huyện"});
   const [chooseWard, setChooseWard] = useState({name: "Phường / Xã"});
 
@@ -44,55 +47,54 @@ function Order() {
     setListWard(!listWard);
   };
 
-  // const cartItems = useSelector((state) => state.cart.cartItems);
-  // const totalPrice = cartItems.reduce(
-  //   (total, item) => total + item.qty * item.salePrice,
-  //   0
-  // );
-  // const userInfo = useSelector((state) => state.userSignin.userInfo);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.qty * item.salePrice,
+    0
+  );
+  const userInfo = useSelector((state) => state.userSignin.userInfo);
 
   const onSubmit = async (data) => {
     if (!data) {
       alert("Bạn hãy nhập đầy đủ thông tin");
       return;
     }
-    // const Order = {
-    //   to_ward_code: chooseWard.id,
-    //   to_district_id: chooseDistrict.id,
+    const Order = {
+      to_ward_code: chooseWard.id,
+      to_district_id: chooseDistrict.id,
 
-    //   orderItems: [...cartItems],
-    //   shippingAddress: {
-    //     ...data,
-    //     province: chooseProvince.name,
-    //     district: chooseDistrict.name,
-    //     ward: chooseWard.name,
-    //   },
-    //   totalPrice: totalPrice,
-    //   name: userInfo.name,
-    //   user: userInfo,
-    // };
+      orderItems: [...cartItems],
+      shippingAddress: {
+        ...data,
+        province: chooseProvince.name,
+        district: chooseDistrict.name,
+        ward: chooseWard.name,
+      },
+      totalPrice: totalPrice,
+      name: userInfo.name,
+      user: userInfo,
+    };
 
-    // await dispatch(OrderInfo(Order));
+    await dispatch(OrderInfo(Order));
   };
 
-  // useEffect(() => {
-  //   dispatch(GetAllProvince());
-  // }, []);
-
-  // useEffect(() => {
-  //   dispatch(GetAllDistrict(202));
-  // }, []);
+  useEffect(() => {
+    dispatch(GetAllProvince());
+  }, []);
 
   const handleSelectProvince = (name, id) => {
     setChooseProvince({name, id});
     setListProvince(!listProvince);
-    // dispatch(GetAllDistrict(id));
+    setChooseDistrict({name: "Quận / Huyện"});
+    setChooseWard({name: "Phường / Xã"});
+    dispatch(GetAllDistrict(id));
   };
 
   const handleSelectDistrict = (name, id) => {
     setChooseDistrict({name, id});
     setListDistrict(!listDistrict);
-    // dispatch(GetAllWard(id));
+    setChooseWard({name: "Phường / Xã"});
+    dispatch(GetAllWard(id));
   };
 
   const handleSelectWard = (name, id) => {
@@ -104,8 +106,9 @@ function Order() {
       <div id="order">
         <div className="order-content">
           <form className="order-page" onSubmit={handleSubmit(onSubmit)}>
+            <h4>Thông tin đặt hàng</h4>
             <div className="customer">
-              <h4>THÔNG TIN KHÁCH HÀNG </h4>
+              <h5>Thông tin khách hàng</h5>
               <div className="form-customer">
                 <input
                   placeholder="Họ và tên"
@@ -121,7 +124,26 @@ function Order() {
             </div>
 
             <div className="address">
-              <h4>CHỌN ĐỊA CHỈ</h4>
+              <h5>Chọn cách thức giao hàng</h5>
+              <FormControl>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="ship"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="ship"
+                    control={<Radio />}
+                    label="Giao tận nơi"
+                  />
+                  <FormControlLabel
+                    value="store"
+                    control={<Radio />}
+                    label="Nhận tại cửa hàng"
+                  />
+                </RadioGroup>
+              </FormControl>
               <div className="address-form">
                 <div className="province">
                   {allProvince ? (

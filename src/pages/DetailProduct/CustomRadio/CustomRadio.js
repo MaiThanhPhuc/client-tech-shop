@@ -1,20 +1,36 @@
 import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import {formatCurrency} from "../../../util/formatCurency";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "../DetailProduct.scss";
-function CustomRadio({type}) {
-  const [check, setChecked] = useState(true);
+function CustomRadio({data, optionNumber, setOptionNumber}) {
+  const [listColor, setListColor] = useState([]);
+  const handleChooseOption = (event) => {
+    const chooseIndex = event.target.value;
+    setOptionNumber(chooseIndex);
+  };
+  useEffect(() => {
+    if (data)
+      setListColor(
+        data
+          .filter(
+            (item) =>
+              data[parseInt(optionNumber)]?.optionName === item?.optionName
+          )
+          .map((item) => item.color)
+      );
+  }, [data, optionNumber]);
   return (
     <>
-      {type == 1 && (
-        <RadioGroup>
-          <div className="row body-product-detail-left__option__fisrt">
+      <RadioGroup value={optionNumber} onChange={handleChooseOption}>
+        <div className="row body-product-detail-left__option__fisrt">
+          {data.map((item, index) => (
             <div className="col-4 body-product-detail-left__option__fisrt__radio">
               <FormControlLabel
-                value="female"
+                key={index}
+                value={index}
                 control={<Radio />}
                 sx={[
-                  check && {
+                  optionNumber && {
                     border: "1px solid #cb1c22",
                   },
                   {
@@ -27,25 +43,24 @@ function CustomRadio({type}) {
                 label={
                   <>
                     <div className="body-product-detail-left__option__fisrt__radio__name">
-                      Ryzen 7 4800H 16GB - 512GB <br /> RTX 3060
+                      {item.optionName}
                     </div>
                     <div className="body-product-detail-left__option__fisrt__radio__price">
-                      {formatCurrency(27990000)}
+                      {formatCurrency(item.salePrice)}
                     </div>
                   </>
                 }
                 labelPlacement="top"
               />
             </div>
-          </div>
-        </RadioGroup>
-      )}
-
-      {type == 2 && (
-        <RadioGroup>
-          <div className="body-product-detail-left__option__second">
+          ))}
+        </div>
+      </RadioGroup>
+      {/* <RadioGroup>
+        <div className="body-product-detail-left__option__second">
+          {listColor.map((item, index) => (
             <FormControlLabel
-              value="female"
+              value={index}
               control={<Radio hidden />}
               sx={[
                 false && {
@@ -68,14 +83,14 @@ function CustomRadio({type}) {
                     src="https://cdn2.cellphones.com.vn/50x50,webp,q100/media/catalog/product/2/_/2_64_38.jpg"
                     alt="test"
                   />
-                  <div>Đen</div>
+                  <div>{item}</div>
                 </>
               }
               labelPlacement="top"
             />
-          </div>
-        </RadioGroup>
-      )}
+          ))}
+        </div>
+      </RadioGroup> */}
     </>
   );
 }

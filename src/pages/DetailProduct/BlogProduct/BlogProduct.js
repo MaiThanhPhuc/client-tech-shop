@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function BlogContent(props) {
+function BlogContent({content}) {
   // const detailProduct = useSelector((state) => state.getProductById.product);
   const [showMoreBlog, setShowMoreBlog] = useState(false);
   const [styleBlog, setStyleBlog] = useState({
