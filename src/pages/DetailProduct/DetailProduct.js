@@ -1,4 +1,11 @@
-import {FormControlLabel, Radio, RadioGroup, Rating} from "@mui/material";
+import {
+  Backdrop,
+  CircularProgress,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Rating,
+} from "@mui/material";
 import {Icon} from "@iconify/react";
 import "./DetailProduct.scss";
 import CarouselDetailProduct from "./CarouselDetailProduct/CarouselDetailProduct";
@@ -22,18 +29,25 @@ function DetailProduct(props) {
   const {id} = useParams();
 
   const [optionNumber, setOptionNumber] = useState(0);
-  function handleAddProduct(product) {
-    const action = AddToCart(product);
+  function handleAddProduct() {
+    const productOptionChoose = detailProduct.productOptions[optionNumber];
+    console.log(productOptionChoose);
+    const productChoose = {
+      entityId: detailProduct.id,
+      option: productOptionChoose,
+    };
+    const action = AddToCart(productChoose);
     dispatch(action);
   }
   const detailProduct = useSelector((state) => state.getProductById.product);
+
   useEffect(() => {
     dispatch(getproductById(id));
   }, [dispatch, id]);
 
   return (
     <>
-      {detailProduct && (
+      {detailProduct ? (
         <>
           <div className="header-product-detail">
             <div className="header-product-detail__name">
@@ -102,7 +116,7 @@ function DetailProduct(props) {
                 {/* <div className="body-product-detail-left__promotion">adwda</div> */}
                 <div className="body-product-detail-left__button">
                   <div className="body-product-detail-left__button__buynow">
-                    <Link to="/cart" onClick={() => handleAddProduct(1)}>
+                    <Link to="/cart" onClick={handleAddProduct}>
                       <strong>MUA NGAY</strong>
                       <br></br>
                       <span>(Giao tận nơi hoặc lấy tại cửa hàng)</span>
@@ -148,6 +162,13 @@ function DetailProduct(props) {
             </div>
           </div>
         </>
+      ) : (
+        <Backdrop
+          sx={{color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1}}
+          open={!detailProduct}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       )}
     </>
   );

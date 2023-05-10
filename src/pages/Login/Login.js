@@ -18,6 +18,7 @@ import SendIcon from "@mui/icons-material/Send";
 import {validateEmail, validatePassword} from "../../util/ValidateData";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import jwt_decode from "jwt-decode";
 
 function Copyright(props) {
   return (
@@ -81,6 +82,17 @@ export default function Login({handleLogin}) {
       .then((response) => {
         const dataResp = response.data;
         localStorage.setItem("token", dataResp.data.access_token);
+        var decoded = jwt_decode(dataResp.data.access_token);
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            avt: decoded.avt,
+            email: decoded.email,
+            firstName: decoded.firstName,
+            lastName: decoded.lastName,
+            fullName: `${decoded.firstName} ${decoded.lastName}`,
+          })
+        );
         handleLogin();
       })
       .catch((error) => {

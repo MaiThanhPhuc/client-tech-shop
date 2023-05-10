@@ -4,7 +4,7 @@ import "./Navbar.scss";
 import Tooltip, {tooltipClasses} from "@mui/material/Tooltip";
 import {styled} from "@mui/material/styles";
 import CategoryBoard from "./CategoryBoard/CategoryBoard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ButtonList} from "./CategoryBoard/CategoryContent";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import Login from "../../../pages/Login/Login";
@@ -27,34 +27,88 @@ const CustomProper = styled(({className, ...props}) => (
 const buttonList = ButtonList;
 
 function Navbar() {
-  const [login, setLogin] = useState(false);
-  const [signUp, setSignUp] = useState(false);
-  const topButtonList = [
+  var topButtonListData = [
     {
       id: 1,
       text: "Giỏ hàng",
       href: "/cart",
       icon: "shopping_cart",
+      isHidden: false,
       action: () => console.log("Cart"),
     },
     {
       id: 2,
       text: "Đăng nhập",
+      isHidden: false,
       href: "",
       action: () => handleLogin(),
     },
     {
       id: 3,
       text: "Đăng kí",
+      isHidden: false,
       href: "",
       action: () => handleSignUp(),
     },
+    {
+      id: 3,
+      text: "",
+      isHidden: true,
+      href: "",
+      icon: "account_circle",
+      action: () => console.log("test"),
+    },
   ];
+
+  const [login, setLogin] = useState(false);
+  const [signUp, setSignUp] = useState(false);
+  const [topButtonList, setTopButtonList] = useState(topButtonListData);
 
   const [showPopper, setShowPopper] = useState(0);
 
+  useEffect(() => {
+    if (localStorage.getItem("userInfo")) {
+      setTopButtonList(
+        topButtonList.map((item, index) => {
+          if (item.id === 1) return item;
+          if (index === 1) {
+            item.isHidden = true;
+            return item;
+          }
+          if (index === 2) {
+            item.isHidden = true;
+            return item;
+          }
+          if (index === 3) {
+            item.isHidden = false;
+            return item;
+          }
+        })
+      );
+    }
+  }, []);
+
   const handleLogin = () => {
     setLogin((prev) => !prev);
+    if (localStorage.getItem("userInfo")) {
+      setTopButtonList(
+        topButtonList.map((item, index) => {
+          if (item.id === 1) return item;
+          if (index === 1) {
+            item.isHidden = true;
+            return item;
+          }
+          if (index === 2) {
+            item.isHidden = true;
+            return item;
+          }
+          if (index === 3) {
+            item.isHidden = false;
+            return item;
+          }
+        })
+      );
+    }
   };
 
   const handleSignUp = () => {
@@ -68,25 +122,27 @@ function Navbar() {
           <div className="logo-container">BrandName</div>
           <SearchBar />
           <div>
-            {topButtonList.map((x, index) => (
-              <Button
-                startIcon={
-                  x.icon ? (
-                    <Icon baseClassName="material-icons-outlined">
-                      {x.icon}
-                    </Icon>
-                  ) : (
-                    ""
-                  )
-                }
-                className="top-button-item"
-                key={index}
-                href={x.href}
-                onClick={x.action}
-              >
-                {x.text}
-              </Button>
-            ))}
+            {topButtonList
+              .filter((x) => x.isHidden === false)
+              .map((x, index) => (
+                <Button
+                  startIcon={
+                    x.icon ? (
+                      <Icon baseClassName="material-icons-outlined">
+                        {x.icon}
+                      </Icon>
+                    ) : (
+                      ""
+                    )
+                  }
+                  className="top-button-item"
+                  key={index}
+                  href={x.href}
+                  onClick={x.action}
+                >
+                  {x.text}
+                </Button>
+              ))}
           </div>
         </div>
         <div className="bottom-navbar">

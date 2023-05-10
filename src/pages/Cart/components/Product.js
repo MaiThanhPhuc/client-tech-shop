@@ -6,14 +6,15 @@ import {
   DeleteQtyProduct,
 } from "../../../actions/CartAction";
 import {formatCurrency} from "../../../util/formatCurency";
-import {Link} from "react-router-dom";
-import imagePath from "../../../assets/imagePath";
+import {Link, useNavigate} from "react-router-dom";
+import {Backdrop, CircularProgress} from "@mui/material";
 Product.propTypes = {};
 
 function Product(props) {
   const {product} = props;
+  const dataOption = product.option;
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   function handleDeleteProduct(product) {
     const action = DeleteToCart(product);
     dispatch(action);
@@ -29,45 +30,61 @@ function Product(props) {
     dispatch(action);
   }
 
+  const handleNavigateDetail = () => {
+    navigate(`/detail/${product.entityId}`);
+  };
+
   return (
-    <div className="shopping-cart-list-product">
-      <div className="shopping-cart-list-product-block">
-        <div className="shopping-cart-list-product-block-left">
-          {/* <img src={product.image}></img> */}
-          <div className="product-image">
-            <img src={imagePath.ip14} />
-          </div>
-        </div>
-        <div className="shopping-cart-list-product-block-right">
-          <Link className="product-name">
-            {product.name}
-            iPad 10.2 2021 64GB | Chính hãng Apple Việt Nam-Xám iPad 10.2 2021
-            64GB | Chính hãng Apple Việt Nam-Xám
-          </Link>
-          <div className="product-box">
-            <p className="product-price">
-              {formatCurrency(product.salePrice)}6.990.000 ₫
-            </p>
-            <p className="product-price-old">
-              {formatCurrency(product.salePrice)}6.990.000 ₫
-            </p>
-          </div>
-          <div className="shopping-cart-list-product-bottom">
-            <ul className="button-event">
-              <li onClick={() => handleDeleteProduct(product)}>-</li>
-              <li>{product.qty}</li>
-              <li onClick={() => handleAddProduct(product)}>+</li>
-            </ul>
-            <button
-              className="delete-product"
-              onClick={() => handleProductOut(product)}
+    <>
+      {product && dataOption && (
+        <div className="shopping-cart-list-product">
+          <div className="shopping-cart-list-product-block">
+            <div
+              onClick={handleNavigateDetail}
+              className="shopping-cart-list-product-block-left"
             >
-              Xóa khỏi giỏ hàng
-            </button>
+              {/* <img src={product.image}></img> */}
+              <div className="product-image">
+                <img
+                  src={dataOption.pictures.length > 0 && dataOption.pictures[0]}
+                  alt={dataOption.fullName}
+                />
+              </div>
+            </div>
+            <div className="shopping-cart-list-product-block-right">
+              <Link className="product-name">{dataOption.fullName}</Link>
+              <div className="product-box">
+                <p className="product-price">
+                  {formatCurrency(dataOption.salePrice)}
+                </p>
+                <p className="product-price-old">
+                  {formatCurrency(dataOption.marketPrice)}
+                </p>
+              </div>
+              <div className="shopping-cart-list-product-bottom">
+                <ul className="button-event">
+                  <li onClick={() => handleDeleteProduct(product)}>-</li>
+                  <li>{product.qty}</li>
+                  <li onClick={() => handleAddProduct(product)}>+</li>
+                </ul>
+                <button
+                  className="delete-product"
+                  onClick={() => handleProductOut(product)}
+                >
+                  Xóa khỏi giỏ hàng
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+      <Backdrop
+        sx={{color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1}}
+        open={!product}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
   );
 }
 

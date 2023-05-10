@@ -38,7 +38,11 @@ function CarouselDetailProduct(props) {
         {images && images.length > 0 ? (
           images.map((item, index) => (
             <SwiperSlide key={index}>
-              <img src={item.src} alt={item.name} />
+              <div className="image-wrapper">
+                <div className="image-wrapper-item">
+                  <img src={item} alt={index} />
+                </div>
+              </div>
             </SwiperSlide>
           ))
         ) : (

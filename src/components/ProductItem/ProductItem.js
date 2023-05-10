@@ -6,14 +6,14 @@ import {formatCurrency} from "../../util/formatCurency";
 function ProductItem({item}) {
   return (
     <>
-      {item && (
+      {item && item.productOptions && item.productOptions.length > 0 && (
         <>
           <Link to={`/detail/${item.id}`}>
             <div className="product-item">
               <div className="product-item-img-wrapper">
                 <div className="product-item-img">
                   <img
-                    src={item.productOptions[0].pictures[0]}
+                    src={item.thumbnail}
                     alt={item.productOptions[0].fullName}
                   />
                 </div>

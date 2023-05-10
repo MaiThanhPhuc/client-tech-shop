@@ -49,7 +49,7 @@ function Order() {
 
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.qty * item.salePrice,
+    (total, item) => total + item.qty * item?.option?.salePrice,
     0
   );
   const userInfo = useSelector((state) => state.userSignin.userInfo);
@@ -59,20 +59,32 @@ function Order() {
       alert("Bạn hãy nhập đầy đủ thông tin");
       return;
     }
+
+    const itemsData = cartItems.map((item) => ({
+      productOptionId: item.option.id,
+      quantity: item.qty,
+    }));
+
     const Order = {
+      paymentMethod: "cod",
+      discountCode: "",
+      deliveryAddress: "string",
+      description: "string",
+      differentReceiverName: "string",
+      differentReceiverPhone: "string",
       to_ward_code: chooseWard.id,
       to_district_id: chooseDistrict.id,
-
-      orderItems: [...cartItems],
-      shippingAddress: {
-        ...data,
-        province: chooseProvince.name,
-        district: chooseDistrict.name,
-        ward: chooseWard.name,
-      },
-      totalPrice: totalPrice,
-      name: userInfo.name,
-      user: userInfo,
+      items: itemsData,
+      // orderItems: [...cartItems],
+      // shippingAddress: {
+      //   ...data,
+      //   province: chooseProvince.name,
+      //   district: chooseDistrict.name,
+      //   ward: chooseWard.name,
+      // },
+      // totalPrice: totalPrice,
+      // name: userInfo.name,
+      // user: userInfo,
     };
 
     await dispatch(OrderInfo(Order));

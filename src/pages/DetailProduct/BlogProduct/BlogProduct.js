@@ -12,12 +12,12 @@ function BlogContent({content}) {
 
   return (
     <section id="blog">
-      {detailProduct.blog ? (
+      {content ? (
         <div className="blog">
           <div className="blog-content" style={styleBlog}>
-            <div dangerouslySetInnerHTML={{__html: detailProduct.blog}} />
+            <div dangerouslySetInnerHTML={{__html: content}} />
 
-            {showMoreBlog === false ? (
+            {/* {showMoreBlog === false ? (
               <div
                 className="blog-showmore"
                 onClick={() => {
@@ -29,7 +29,7 @@ function BlogContent({content}) {
               </div>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
       ) : (

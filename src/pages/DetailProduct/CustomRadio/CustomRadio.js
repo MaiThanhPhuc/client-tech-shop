@@ -30,8 +30,9 @@ function CustomRadio({data, optionNumber, setOptionNumber}) {
                 value={index}
                 control={<Radio />}
                 sx={[
-                  optionNumber && {
+                  index === parseInt(optionNumber) && {
                     border: "1px solid #cb1c22",
+                    backgroundColor: "#fbfbfb",
                   },
                   {
                     borderRadius: 2,

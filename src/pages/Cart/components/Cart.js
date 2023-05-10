@@ -8,9 +8,10 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 function Cart(props) {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems);
   var userInfo = useSelector((state) => state.userSignin.userInfo);
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.qty * item.salePrice,
+    (total, item) => total + item.qty * item?.option?.salePrice,
     0
   );
 

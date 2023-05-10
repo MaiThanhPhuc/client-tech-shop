@@ -9,21 +9,6 @@ function ListProduct(props) {
       {products.map((product, index) => (
         <Product product={product} key={index}></Product>
       ))}
-      {products.map((product, index) => (
-        <Product product={product} key={index}></Product>
-      ))}
-      {products.map((product, index) => (
-        <Product product={product} key={index}></Product>
-      ))}
-      {products.map((product, index) => (
-        <Product product={product} key={index}></Product>
-      ))}
-      {products.map((product, index) => (
-        <Product product={product} key={index}></Product>
-      ))}
-      {products.map((product, index) => (
-        <Product product={product} key={index}></Product>
-      ))}
     </div>
   );
 }

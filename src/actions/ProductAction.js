@@ -23,7 +23,7 @@ export const filterProductByRandomField = (infoProduct) => async (dispatch) => {
 export const getAllProduct = (slug) => async (dispatch) => {
   try {
     const {data} = await axios.get(
-      `${BASE_URL}/api/product/search?keyword=&cate=&manu=&orderBy=des&sortBy=bestPrice&page=0&size=10`
+      `${BASE_URL}/api/product/search?keyword=&cate=${slug}&manu=&orderBy=des&sortBy=bestPrice&page=0&size=10`
     );
     dispatch({type: "GET_ALL_PRODUCT", payload: data.data});
   } catch (error) {

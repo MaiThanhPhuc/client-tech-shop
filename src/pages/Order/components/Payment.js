@@ -17,6 +17,7 @@ export default function Payment() {
 
   const {order} = useSelector((state) => state.orderInfo);
 
+  console.log(order);
   const payLater = () => {
     setChoosePay({payOnline: false, payLater: true});
   };
@@ -63,7 +64,7 @@ export default function Payment() {
   }, []);
   return (
     <div className="choose-pay">
-      <h4>CHỌN PHƯƠNG THỨC THANH TOÁN </h4>
+      <h5>Chọn phương thức thanh toán</h5>
       <div className="choose">
         <button
           type="submit"
